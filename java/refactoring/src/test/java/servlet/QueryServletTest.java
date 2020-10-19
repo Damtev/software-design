@@ -14,13 +14,11 @@ import java.io.Writer;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static utils.TestUtils.DB_ADDRESS;
+import static utils.TestUtils.*;
 
 public class QueryServletTest {
 
@@ -31,23 +29,11 @@ public class QueryServletTest {
 
     @BeforeEach
     public void setup() throws SQLException, IOException {
-        when(response.getWriter()).thenReturn(new PrintWriter(writer));
-        TestUtils.recreateProductTable();
+        commonTestSetup(response, writer);
     }
 
     private void commonQueryTest(final String command, final String answer) throws IOException, SQLException {
-        final Map<String, Integer> values = Map.of(
-                "CHEAP", 10,
-                "EXPENSIVE", 31,
-                "MIDDLE", 25
-        );
-        final String valuesString = values
-                .entrySet()
-                .stream()
-                .map(product -> String.format("\t('%s', ", product.getKey()) + product.getValue() + ")")
-                .collect(Collectors.joining("," + System.lineSeparator()));
-        final String insertQuery = "INSERT INTO PRODUCT(NAME, PRICE) VALUES" + System.lineSeparator() + valuesString;
-        commonQueryTest(command, answer, insertQuery);
+        commonQueryTest(command, answer, COMMON_INSERT_QUERY);
     }
 
     private void commonQueryTest(final String command, final String answer, final String insertQuery) throws SQLException, IOException {
@@ -56,7 +42,7 @@ public class QueryServletTest {
         }
         when(request.getParameter("command")).thenReturn(command);
         queryServlet.doGet(request, response);
-        assertEquals(answer, writer.toString());
+        assertEquals(writer.toString(), answer);
     }
 
     @Test
