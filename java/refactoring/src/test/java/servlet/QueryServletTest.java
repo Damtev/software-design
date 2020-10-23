@@ -30,11 +30,11 @@ public class QueryServletTest {
         commonTestSetup(response, writer);
     }
 
-    private void commonQueryTest(final String command, final String answer) throws IOException, SQLException {
+    private void commonQueryTest(final String command, final String answer) throws SQLException {
         commonQueryTest(command, answer, COMMON_INSERT_QUERY);
     }
 
-    private void commonQueryTest(final String command, final String answer, final String insertQuery) throws SQLException, IOException {
+    private void commonQueryTest(final String command, final String answer, final String insertQuery) throws SQLException {
         try (final Connection connection = DriverManager.getConnection(DB_ADDRESS)) {
             if (insertQuery != null && !insertQuery.isEmpty()) {
                 connection.prepareStatement(insertQuery).execute();
@@ -46,7 +46,7 @@ public class QueryServletTest {
     }
 
     @Test
-    public void testCorrectMax() throws SQLException, IOException {
+    public void testCorrectMax() throws SQLException {
         commonQueryTest("max",
                 """
                         <html><body>
@@ -57,7 +57,7 @@ public class QueryServletTest {
     }
 
     @Test
-    public void testCorrectMin() throws SQLException, IOException {
+    public void testCorrectMin() throws SQLException {
         commonQueryTest("min",
                 """
                         <html><body>
@@ -68,7 +68,7 @@ public class QueryServletTest {
     }
 
     @Test
-    public void testCorrectSum() throws SQLException, IOException {
+    public void testCorrectSum() throws SQLException {
         commonQueryTest("sum",
                 """
                         <html><body>
@@ -79,7 +79,7 @@ public class QueryServletTest {
     }
 
     @Test
-    public void testEmptySum() throws SQLException, IOException {
+    public void testEmptySum() throws SQLException {
         commonQueryTest("sum",
                 """
                         <html><body>
@@ -91,7 +91,7 @@ public class QueryServletTest {
     }
 
     @Test
-    public void testCorrectCount() throws SQLException, IOException {
+    public void testCorrectCount() throws SQLException {
         commonQueryTest("count",
                 """
                         <html><body>
@@ -102,7 +102,7 @@ public class QueryServletTest {
     }
 
     @Test
-    public void testEmptyCount() throws SQLException, IOException {
+    public void testEmptyCount() throws SQLException {
         commonQueryTest("count",
                 """
                         <html><body>
@@ -114,7 +114,7 @@ public class QueryServletTest {
     }
 
     @Test
-    public void testUnknownCommand() throws SQLException, IOException {
+    public void testUnknownCommand() throws SQLException {
         commonQueryTest("",
                 """
                         Unknown command:\s
