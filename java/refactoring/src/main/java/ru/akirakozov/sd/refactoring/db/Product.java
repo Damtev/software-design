@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class Product {
 
-    private String name;
+    private final String name;
     private int price;
 
     public Product(String name, int price) {
@@ -19,10 +19,6 @@ public class Product {
 
     public int getPrice() {
         return price;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setPrice(int price) {
