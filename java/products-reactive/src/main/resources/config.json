@@ -1,0 +1,15 @@
+{
+  "db": {
+    "schema": "mongodb",
+    "host": "localhost",
+    "port": 27017,
+    "name": "products"
+  },
+  "server": {
+    "port": 8080
+  },
+  "rate": {
+    "usd": 73.33,
+    "eur": 87.70
+  }
+}
